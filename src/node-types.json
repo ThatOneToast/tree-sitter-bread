@@ -125,6 +125,11 @@
     }
   },
   {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "expression",
     "named": true,
     "fields": {},
@@ -609,6 +614,10 @@
       "required": false,
       "types": [
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "function_declaration",
           "named": true
         },
@@ -857,6 +866,10 @@
     "named": false
   },
   {
+    "type": "--",
+    "named": false
+  },
+  {
     "type": "--use:",
     "named": false
   },
@@ -926,10 +939,6 @@
   },
   {
     "type": "break_statement",
-    "named": true
-  },
-  {
-    "type": "comment",
     "named": true
   },
   {

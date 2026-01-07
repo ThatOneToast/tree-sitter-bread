@@ -1,7 +1,7 @@
 module.exports = grammar({
     name: "bread",
 
-    extras: ($) => [/\s/, $.comment],
+    extras: ($) => [/\s/],
 
     conflicts: ($) => [[$.import_module_path]],
 
@@ -10,44 +10,33 @@ module.exports = grammar({
             repeat(
                 choice(
                     $.import_directive,
+                    $.comment,
                     $.function_declaration,
                     $.variable_declaration,
                 ),
             ),
 
-        // Comments
-        comment: ($) =>
-            token(
-                prec(
-                    -1,
-                    seq(
-                        "--",
-                        choice(
-                            seq(/[^u]/, /.*/),
-                            seq("u", /[^s]/, /.*/),
-                            seq("us", /[^e]/, /.*/),
-                            seq("use", /[^:]/, /.*/),
-                            "u",
-                            "us",
-                            "use",
-                            "",
-                        ),
-                    ),
-                ),
-            ),
+        // Comments (not import directives)
+        comment: ($) => prec(-1, seq("--", /[^\n]*/)),
 
         // Import directives
         import_directive: ($) =>
-            seq(
-                field("use_keyword", "--use:"),
-                field("module_path", $.import_module_path),
-                choice(
-                    seq(":", "all"),
-                    seq(":", field("target", $.identifier)),
-                    seq(":", "[", commaSep1($.identifier), "]"),
-                ),
-                optional(
-                    seq(field("at_symbol", "@"), field("alias", $.identifier)),
+            prec.dynamic(
+                1,
+                seq(
+                    field("use_keyword", "--use:"),
+                    field("module_path", $.import_module_path),
+                    choice(
+                        seq(":", "all"),
+                        seq(":", field("target", $.identifier)),
+                        seq(":", "[", commaSep1($.identifier), "]"),
+                    ),
+                    optional(
+                        seq(
+                            field("at_symbol", "@"),
+                            field("alias", $.identifier),
+                        ),
+                    ),
                 ),
             ),
 
