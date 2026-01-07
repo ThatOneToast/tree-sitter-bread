@@ -24,6 +24,9 @@
 (boolean) @boolean
 (nil) @constant.builtin
 
+; Tuples
+(tuple_literal) @constructor
+
 ; Comments
 (comment) @comment
 

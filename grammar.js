@@ -141,6 +141,7 @@ module.exports = grammar({
                 $.literal,
                 $.table_literal,
                 $.array_literal,
+                $.tuple_literal,
                 $.range_expression,
                 $.parenthesized_expression,
             ),
@@ -261,6 +262,16 @@ module.exports = grammar({
             ),
 
         array_literal: ($) => seq("[", optional(commaSep($.expression)), "]"),
+
+        tuple_literal: ($) =>
+            seq(
+                "(",
+                $.expression,
+                ",",
+                commaSep($.expression),
+                optional(","),
+                ")",
+            ),
 
         // Types
         type: ($) => $.identifier,
