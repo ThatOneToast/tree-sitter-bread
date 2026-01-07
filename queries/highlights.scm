@@ -52,11 +52,12 @@
 
 ; Import directives - detailed highlighting
 (import_directive
-  use_keyword: (_) @keyword.directive
-  module_path: (import_module_path) @comment
+  (import_module_path) @comment
   target: (identifier)? @comment
-  at_symbol: (_)? @keyword.directive
   alias: (identifier)? @keyword.directive)
+
+"--use:" @keyword.directive
+"@" @keyword.directive
 
 ; Operators
 [
