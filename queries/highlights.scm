@@ -33,12 +33,16 @@
 (variable_declaration
   name: (identifier) @variable)
 
+; Variable usage (identifiers that aren't part of other constructs)
+(identifier) @variable
+
 ; Member access
 (member_expression
   property: (identifier) @property)
 
-; Namespace paths
-(namespace_path) @namespace
+; Namespace paths - highlight each part
+(namespace_path
+  (identifier) @namespace)
 
 ; Literals
 (integer) @number
@@ -52,8 +56,8 @@
 
 ; Import directives - detailed highlighting
 (import_directive
-  (import_module_path) @comment
-  target: (identifier)? @comment
+  (import_module_path) @string.special
+  target: (identifier)? @string.special
   alias: (identifier)? @keyword.directive)
 
 "--use:" @keyword.directive
@@ -98,3 +102,8 @@
 
 ; Types
 (type) @type
+
+; Table fields
+(table_field
+  key: (identifier) @property
+  value: (_))
