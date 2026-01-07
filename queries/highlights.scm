@@ -17,35 +17,6 @@
 (break_statement) @keyword
 (continue_statement) @keyword
 
-; Function definitions
-(function_declaration
-  name: (identifier) @function)
-
-
-
-; Namespace paths - module part should be gray/muted
-(namespace_path
-  module: (identifier) @type.builtin)
-
-; Namespace paths - name part should be function color
-(namespace_path
-  name: (identifier) @function)
-
-; Parameters
-(parameter
-  name: (identifier) @variable.parameter)
-
-; Variables
-(variable_declaration
-  name: (identifier) @variable)
-
-; Member access
-(member_expression
-  property: (identifier) @property)
-
-; Variable usage - identifiers that are used (high priority to override defaults)
-(identifier) @variable
-
 ; Literals
 (integer) @number
 (float) @number
@@ -109,3 +80,30 @@
 (table_field
   key: (identifier) @property
   value: (_))
+
+; Variable usage - default color for all identifiers
+(identifier) @variable
+
+; Parameters - override default
+(parameter
+  name: (identifier) @variable.parameter)
+
+; Variables declarations - override default
+(variable_declaration
+  name: (identifier) @variable)
+
+; Member access - override default
+(member_expression
+  property: (identifier) @property)
+
+; Function definitions - override default
+(function_declaration
+  name: (identifier) @function)
+
+; Namespace paths - module part should be gray/muted
+(namespace_path
+  module: (identifier) @type.builtin)
+
+; Namespace paths - name part should be function color (most specific, comes last)
+(namespace_path
+  name: (identifier) @function)
