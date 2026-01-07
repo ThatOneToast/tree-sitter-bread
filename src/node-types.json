@@ -645,6 +645,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "continue_statement",
           "named": true
         },
@@ -718,6 +722,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
         {
           "type": "table_field",
           "named": true

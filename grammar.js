@@ -76,6 +76,7 @@ module.exports = grammar({
         // Statements
         statement: ($) =>
             choice(
+                $.comment,
                 $.variable_declaration,
                 $.function_declaration,
                 $.return_statement,
@@ -241,7 +242,8 @@ module.exports = grammar({
         boolean: ($) => choice("true", "false"),
         nil: ($) => "nil",
 
-        table_literal: ($) => seq("{", optional(commaSep($.table_field)), "}"),
+        table_literal: ($) =>
+            seq("{", repeat(choice($.comment, $.table_field, ",")), "}"),
 
         table_field: ($) =>
             seq(
