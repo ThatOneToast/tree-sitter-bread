@@ -215,7 +215,14 @@ module.exports = grammar({
             ),
 
         namespace_path: ($) =>
-            seq($.identifier, repeat1(seq("::", $.identifier))),
+            prec.left(
+                seq(
+                    field("module", $.identifier),
+                    repeat(seq("::", field("module", $.identifier))),
+                    "::",
+                    field("name", $.identifier),
+                ),
+            ),
 
         range_expression: ($) =>
             prec.left(

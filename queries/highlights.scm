@@ -21,9 +21,15 @@
 (function_declaration
   name: (identifier) @function)
 
-; Function calls
-(call_expression
-  function: (_) @function.call)
+
+
+; Namespace paths - module part should be gray (comment color)
+(namespace_path
+  module: (identifier) @comment)
+
+; Namespace paths - name part should be light red
+(namespace_path
+  name: (identifier) @function.call)
 
 ; Parameters
 (parameter
@@ -33,16 +39,12 @@
 (variable_declaration
   name: (identifier) @variable)
 
-; Variable usage (identifiers that aren't part of other constructs)
-(identifier) @variable
-
 ; Member access
 (member_expression
   property: (identifier) @property)
 
-; Namespace paths - highlight each part
-(namespace_path
-  (identifier) @namespace)
+; Variable usage - identifiers that are used (high priority to override defaults)
+(identifier) @variable
 
 ; Literals
 (integer) @number
