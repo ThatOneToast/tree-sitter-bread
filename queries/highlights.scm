@@ -50,8 +50,12 @@
 ; Comments
 (comment) @comment
 
-; Import directives
-(import_directive) @keyword.directive
+; Import directives - detailed highlighting
+(import_directive
+  "--use:" @keyword.directive
+  module: (identifier) @namespace
+  target: (identifier)? @type
+  alias: (identifier)? @keyword.directive)
 
 ; Operators
 [

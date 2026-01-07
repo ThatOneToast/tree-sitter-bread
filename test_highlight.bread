@@ -1,0 +1,17 @@
+-- Test file for syntax highlighting
+
+fn test() {
+    let x = 42
+    const PI = 3.14159
+
+    if x > 10 {
+        print("Large number")
+    }
+
+    return x
+}
+
+fn entry() {
+    test()
+}
+
