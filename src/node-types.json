@@ -338,12 +338,22 @@
           }
         ]
       },
-      "module": {
+      "at_symbol": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "@",
+            "named": false
+          }
+        ]
+      },
+      "module_path": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "import_module_path",
             "named": true
           }
         ]
@@ -357,11 +367,36 @@
             "named": true
           }
         ]
+      },
+      "use_keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "--use:",
+            "named": false
+          }
+        ]
       }
     },
     "children": {
       "multiple": true,
       "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_module_path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "identifier",

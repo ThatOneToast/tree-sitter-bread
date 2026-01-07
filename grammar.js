@@ -3,6 +3,8 @@ module.exports = grammar({
 
     extras: ($) => [/\s/, $.comment],
 
+    conflicts: ($) => [[$.import_module_path]],
+
     rules: {
         source_file: ($) =>
             repeat(
@@ -14,21 +16,43 @@ module.exports = grammar({
             ),
 
         // Comments
-        comment: ($) => token(seq("--", /.*/)),
+        comment: ($) =>
+            token(
+                prec(
+                    -1,
+                    seq(
+                        "--",
+                        choice(
+                            seq(/[^u]/, /.*/),
+                            seq("u", /[^s]/, /.*/),
+                            seq("us", /[^e]/, /.*/),
+                            seq("use", /[^:]/, /.*/),
+                            "u",
+                            "us",
+                            "use",
+                            "",
+                        ),
+                    ),
+                ),
+            ),
 
         // Import directives
         import_directive: ($) =>
             seq(
-                "--use:",
-                field("module", $.identifier),
-                ":",
+                field("use_keyword", "--use:"),
+                field("module_path", $.import_module_path),
                 choice(
-                    "all",
-                    field("target", $.identifier),
-                    seq("[", commaSep1($.identifier), "]"),
+                    seq(":", "all"),
+                    seq(":", field("target", $.identifier)),
+                    seq(":", "[", commaSep1($.identifier), "]"),
                 ),
-                optional(seq("@", field("alias", $.identifier))),
+                optional(
+                    seq(field("at_symbol", "@"), field("alias", $.identifier)),
+                ),
             ),
+
+        import_module_path: ($) =>
+            seq($.identifier, repeat(seq(":", $.identifier))),
 
         // Function declarations
         function_declaration: ($) =>
