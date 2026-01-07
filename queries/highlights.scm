@@ -23,13 +23,13 @@
 
 
 
-; Namespace paths - module part should be gray (comment color)
+; Namespace paths - module part should be gray/muted
 (namespace_path
-  module: (identifier) @comment)
+  module: (identifier) @type.builtin)
 
-; Namespace paths - name part should be light red
+; Namespace paths - name part should be function color
 (namespace_path
-  name: (identifier) @function.call)
+  name: (identifier) @function)
 
 ; Parameters
 (parameter
